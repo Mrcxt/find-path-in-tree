@@ -133,7 +133,13 @@ describe('findPathInTree', () => {
   })
 
   it('should handle null and undefined nodes', () => {
-    const treeWithNulls: (TreeNode | null | undefined)[] = [
+    interface NullableTreeNode {
+      id: number
+      name: string
+      children?: (NullableTreeNode | null | undefined)[]
+    }
+
+    const treeWithNulls: (NullableTreeNode | null | undefined)[] = [
       null,
       {
         id: 1,
