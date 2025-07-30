@@ -131,4 +131,58 @@ describe('findPathInTree', () => {
     expect(result.target).toEqual({ id: 7, name: 'child3' })
     expect(result.path).toHaveLength(2)
   })
+
+  it('should handle null and undefined nodes', () => {
+    const treeWithNulls: (TreeNode | null | undefined)[] = [
+      null,
+      {
+        id: 1,
+        name: 'root',
+        children: [undefined, { id: 2, name: 'child' }, null],
+      },
+      undefined,
+    ]
+
+    const result = findPathInTree(treeWithNulls, node => node?.id === 2)
+
+    expect(result.target).toEqual({ id: 2, name: 'child' })
+    expect(result.path).toHaveLength(2)
+  })
+
+  it('should work with primitive types', () => {
+    const stringTree = ['root', 'child1', 'child2']
+
+    const result = findPathInTree(stringTree, node => node === 'child2')
+
+    expect(result.target).toBe('child2')
+    expect(result.path).toEqual(['child2'])
+  })
+
+  it('should work with number types', () => {
+    const numberTree = [1, 2, 3, 4, 5]
+
+    const result = findPathInTree(numberTree, node => node === 4)
+
+    expect(result.target).toBe(4)
+    expect(result.path).toEqual([4])
+  })
+
+  it('should handle invalid children gracefully', () => {
+    const invalidTree = [
+      {
+        id: 1,
+        name: 'root',
+        children: 'not an array' as any,
+      },
+    ]
+
+    const result = findPathInTree(invalidTree, node => node.id === 1)
+
+    expect(result.target).toEqual({
+      id: 1,
+      name: 'root',
+      children: 'not an array',
+    })
+    expect(result.path).toHaveLength(1)
+  })
 })

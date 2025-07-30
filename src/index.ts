@@ -6,22 +6,32 @@
  * @param childrenKey - 子节点字段名，默认为 'children'
  * @returns 包含路径（从根到目标）和目标节点的对象，如果未找到则返回空路径和 undefined
  */
-export function findPathInTree<T extends Record<string, any>>(
+export function findPathInTree<T>(
   tree: T[],
   predicate: (node: T) => boolean,
-  childrenKey: string = 'children'
+  childrenKey: keyof T = 'children' as keyof T
 ): { path: T[]; target?: T } {
   const path: T[] = []
 
   function dfs(nodes: T[]): boolean {
+    if (!Array.isArray(nodes)) {
+      return false
+    }
+
     for (const node of nodes) {
+      // 跳过 null 或 undefined 节点
+      if (node == null) {
+        continue
+      }
+
       path.push(node)
 
       if (predicate(node)) {
         return true
       }
 
-      const children = node[childrenKey] as T[] | undefined
+      // 安全地获取子节点，支持各种数据类型
+      const children = (node as any)?.[childrenKey]
       if (Array.isArray(children) && dfs(children)) {
         return true
       }
@@ -35,7 +45,7 @@ export function findPathInTree<T extends Record<string, any>>(
 
   return {
     path,
-    target: path?.[path.length - 1],
+    target: path.length > 0 ? path[path.length - 1] : undefined,
   }
 }
 

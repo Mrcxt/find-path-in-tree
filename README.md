@@ -81,6 +81,29 @@ const result = findPathInTree(
   tree,
   node => node.name.includes('child') && node.id > 3
 )
+
+// 处理包含 null/undefined 的树
+const treeWithNulls = [
+  null,
+  {
+    id: 1,
+    name: 'root',
+    children: [undefined, { id: 2, name: 'child' }, null]
+  },
+  undefined
+]
+
+const result2 = findPathInTree(
+  treeWithNulls,
+  node => node?.id === 2
+)
+
+// 支持原始数据类型
+const stringTree = ['root', 'child1', 'target']
+const result3 = findPathInTree(
+  stringTree,
+  node => node === 'target'
+)
 ```
 
 ## API
@@ -110,6 +133,9 @@ const result = findPathInTree(
 - ✅ 深度优先搜索算法
 - ✅ 零依赖
 - ✅ 支持 ESM 和 CommonJS
+- ✅ 支持任意数据类型（不限于对象）
+- ✅ 安全处理 null 和 undefined 节点
+- ✅ 容错处理无效的子节点数据
 
 ## 开发
 
