@@ -1,0 +1,68 @@
+{
+  "name": "find-path-in-tree",
+  "version": "1.0.0",
+  "description": "在树形结构中查找符合条件的节点路径和目标节点",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --write src/**/*.ts",
+    "format:check": "prettier --check src/**/*.ts",
+    "release": "release-it",
+    "prepublishOnly": "pnpm run build"
+  },
+  "keywords": [
+    "tree",
+    "search",
+    "path",
+    "find",
+    "typescript",
+    "utility"
+  ],
+  "author": "Mrcxt <mrcxt@foxmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mrcxt/find-path-in-tree.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Mrcxt/find-path-in-tree/issues"
+  },
+  "homepage": "https://github.com/Mrcxt/find-path-in-tree#readme",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vitest/coverage-v8": "^1.0.0",
+    "eslint": "^8.0.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "prettier": "^3.0.0",
+    "release-it": "^16.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
