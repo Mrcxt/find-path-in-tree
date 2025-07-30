@@ -84,7 +84,7 @@ describe('findPathInTree', () => {
   })
 
   it('should work with empty tree', () => {
-    const result = findPathInTree([], node => node.id === 1)
+    const result = findPathInTree([] as TreeNode[], node => node.id === 1)
 
     expect(result.target).toBeUndefined()
     expect(result.path).toHaveLength(0)
